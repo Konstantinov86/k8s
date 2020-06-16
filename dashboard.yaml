@@ -37,12 +37,13 @@ metadata:
   name: kubernetes-dashboard
   namespace: kubernetes-dashboard
 spec:
+  type: NodePort
   ports:
-    - port: 443
+    - nodePort: 31111
+      port: 443
       targetPort: 8443
   selector:
     k8s-app: kubernetes-dashboard
-  type: NodePort
 
 ---
 
@@ -188,15 +189,16 @@ spec:
     spec:
       containers:
         - name: kubernetes-dashboard
-          image: kubernetesui/dashboard:v2.0.0
+          image: kubernetesui/dashboard:v2.0.1
           imagePullPolicy: Always
           ports:
             - containerPort: 8443
               protocol: TCP
           args:
-            - --tls-cert-file=/root/certs/dashboard.crt
-            - --tls-key-file=/root/certs/dashboard.key
+            #- --auto-generate-certificates
             - --namespace=kubernetes-dashboard
+            - --tls-cert-file=/wildcard_forsru_cert.crt
+            - --tls-key-file=/wildcard.key
             # Uncomment the following line to manually specify Kubernetes API server Host
             # If not specified, Dashboard will attempt to auto discover the API server and connect
             # to it. Uncomment only if the default does not work.
