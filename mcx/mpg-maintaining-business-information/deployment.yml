@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mcx
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: database-config
+  namespace: mcx
+stringData:
+  HOST: mgp-db.fors.ru
+  PORT: "5432"
+  NAME: mpg_mbi
+  USERNAME: postgres
+  PASSWORD: postgres
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mpg-maintaining-business-information
+  namespace: mcx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mcx
+      service: mpg-maintaining-business-information
+  template:
+    metadata:
+      name: mcx
+      labels:
+        app: mcx
+        service: mpg-maintaining-business-information
+    spec:
+      containers:
+        - image: nexus.fors.ru:10443/mcx/registry
+          name: mpg-maintaining-business-information
+          imagePullPolicy: Always
+          ports:
+            - name: liveness-port
+              containerPort: 8080
+          envFrom:
+            - prefix: DB_
+              secretRef:
+                name: database-config
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mpg-maintaining-business-information 
+  namespace: mcx
+spec:
+  type: NodePort
+  selector:
+    app: mcx
+    service: mpg-maintaining-business-information
+  ports:
+    - nodePort: 30655
+      port: 80
+      targetPort: 8080
