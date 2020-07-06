@@ -286,11 +286,13 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - name: http
+    - nodePort: 32222
+      name: http
       port: 80
       protocol: TCP
       targetPort: http
-    - name: https
+    - nodePort: 32333
+      name: https
       port: 443
       protocol: TCP
       targetPort: https

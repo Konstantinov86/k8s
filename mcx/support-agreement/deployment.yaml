@@ -26,6 +26,7 @@ metadata:
   namespace: mcx
 spec:
   replicas: 3
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app: support-agreement
@@ -38,7 +39,7 @@ spec:
         service: support-agreement
     spec:
       containers:
-        - image: nexus.fors.ru:10443/mcx/mgp-support-agreement:latest
+        - image: nexus.fors.ru:10442/mcx/mgp-support-agreement:latest
           name: support-agreement
           imagePullPolicy: Always
           livenessProbe:
