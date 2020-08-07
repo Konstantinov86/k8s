@@ -5,6 +5,7 @@
       name: mcx-ingress
       namespace: mcx
       annotations:
+        kubernetes.io/ingress.class: "nginx"
         nginx.ingress.kubernetes.io/rewrite-target: /$2
     spec:
       rules:
@@ -18,10 +19,7 @@
             backend:
               serviceName: control-limit-frontend
               servicePort: 80
-          - path: /control-limit-frontend2(/|$)(.*)
-            backend:
-              serviceName: control-limit-frontend2
-              servicePort: 80
+          
           
           - path: /criterion(/|$)(.*)
             backend:
