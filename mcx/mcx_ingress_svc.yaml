@@ -56,4 +56,12 @@
           - path: /support-agreement-frontend(/|$)(.*)
             backend:
               serviceName: support-agreement-frontend
-              servicePort: 80       
+              servicePort: 80
+          - path: /budget-assignations(/|$)(.*)
+            backend:
+              serviceName: budget-assignations
+              servicePort: 80     
+          - path: /indicators-storage(/|$)(.*)
+            backend:
+              serviceName: indicators-storage
+              servicePort: 80   
