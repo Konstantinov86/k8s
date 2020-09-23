@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: LimitRange
 metadata:
-  name: cpu-min-max
+  name: cpu-limit-range
 spec:
   limits:
   - max:
