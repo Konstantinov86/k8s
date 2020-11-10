@@ -1,0 +1,82 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mcx
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: activemq-service-mcx
+  namespace: mcx
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: activemq-service-mcx
+      service: activemq-service-mcx
+  template:
+    metadata:
+      name: mcx
+      labels:
+        app: activemq-service-mcx
+        service: activemq-service-mcx
+    spec:
+      containers:
+        - image: webcenter/activemq:5.14.3
+          name: activemq-service-mcx
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 61616
+          env:
+            - name: ACTIVEMQ_CONFIG_NAME
+              value: amqp-srv1
+            - name: ACTIVEMQ_CONFIG_DEFAULTACCOUNT
+              value: 'false'
+            - name: ACTIVEMQ_ADMIN_LOGIN
+              value: admin
+            - name: ACTIVEMQ_ADMIN_PASSWORD
+              value: admin
+            - name: ACTIVEMQ_USERS_myproducer
+              value: admin
+            - name: ACTIVEMQ_GROUPS_writes
+              value: myproducer
+            - name: ACTIVEMQ_USERS_myconsumer
+              value: admin
+            - name: ACTIVEMQ_GROUPS_reads
+              value: myconsumer
+            - name: ACTIVEMQ_JMX_user1_role
+              value: readwrite
+            - name: ACTIVEMQ_JMX_user1_password
+              value: admin
+            - name: ACTIVEMQ_JMX_user2_role
+              value: read
+            - name: ACTIVEMQ_JMX_user2_password
+              value: admin
+            - name: ACTIVEMQ_CONFIG_QUEUES_queue1
+              value: messageQueue
+            - name: ACTIVEMQ_CONFIG_MINMEMORY
+              value: '1024'
+            - name: ACTIVEMQ_CONFIG_MAXMEMORY
+              value: '4096'
+            - name: ACTIVEMQ_CONFIG_SCHEDULERENABLED
+              value: 'true'
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: activemq-service-mcx
+  labels:
+    app: activemq-service-mcx
+spec:
+  type: NodePort
+  selector:
+    app: activemq-service-mcx
+  ports:
+    - nodePort: 30587
+      port: 61616
+      targetPort: 61616
