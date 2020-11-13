@@ -1,0 +1,22 @@
+---
+    apiVersion: networking.k8s.io/v1beta1
+    #apiVersion: extensions/v1beta1
+    kind: Ingress
+    metadata:
+      name: mcx-ingress
+      namespace: mcx-ingress
+      annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: /$1
+        nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
+    spec:
+      rules:
+       - http:
+          paths:
+          - path: /control-limit(/|$)(.*)
+            backend:
+              serviceName: control-limit
+              servicePort: 80
+          - path: /control-limit-frontend(/|$)(.*)
+            backend:
+              serviceName: control-limit-frontend
+              servicePort: 80

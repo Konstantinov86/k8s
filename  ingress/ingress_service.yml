@@ -1,59 +1,60 @@
 ---
-    apiVersion: extensions/v1beta1
-    kind: Ingress
-    metadata:
-      name: mcx-ingress
-      namespace: mcx-ingress
-      annotations:
-        nginx.ingress.kubernetes.io/rewrite-target: /$2
-        nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
-    spec:
-      rules:
-       - http:
-          paths:
-          - path: /control-limit(/|$)(.*)
-            backend:
-              serviceName: control-limit
-              servicePort: 80
-          - path: /control-limit-frontend(/|$)(.*)
-            backend:
-              serviceName: control-limit-frontend
-              servicePort: 80
-          
-          
-          - path: /criterion(/|$)(.*)
-            backend:
-              serviceName: criterion
-              servicePort: 80
-          - path: /draft-agreements-service(/|$)(.*)
-            backend:
-              serviceName: draft-agreements-service
-              servicePort: 80
-          - path: /mgp-agreements-criteria-frontend(/|$)(.*)
-            backend:
-              serviceName: mgp-agreements-criteria-frontend
-              servicePort: 80   
-          - path: /mgp-kzn-integration(/|$)(.*)
-            backend:
-              serviceName: mgp-kzn-integration
-              servicePort: 80 
-          - path: /mgp-subject-rf-frontend(/|$)(.*)
-            backend:
-              serviceName: mgp-subject-rf-frontend
-              servicePort: 80 
-          - path: /mpg-maintaining-business-information(/|$)(.*)
-            backend:
-              serviceName: mpg-maintaining-business-information
-              servicePort: 80 
-          - path: /needs-service(/|$)(.*)
-            backend:
-              serviceName: needs-service
-              servicePort: 80  
-          - path: /support-agreement(/|$)(.*)
-            backend:
-              serviceName: support-agreement
-              servicePort: 80
-          - path: /support-agreement-frontend(/|$)(.*)
-            backend:
-              serviceName: support-agreement-frontend
-              servicePort: 80       
+  apiVersion: extensions/v1beta1
+  kind: Ingress
+  metadata:
+    name: mcx-ingress
+    namespace: mcx-ingress
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /$1
+      nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  spec:
+    rules:
+     - http:
+        paths:
+        - path: /control-limit(/|$)(.*)
+          backend:
+            serviceName: control-limit
+            servicePort: 80
+        - path: /control-limit-frontend(/|$)(.*)
+          backend:
+            serviceName: control-limit-frontend
+            servicePort: 80
+        
+        
+        - path: /criterion(/|$)(.*)
+          backend:
+            serviceName: criterion
+            servicePort: 80
+        - path: /draft-agreements-service(/|$)(.*)
+          backend:
+            serviceName: draft-agreements-service
+            servicePort: 80
+        - path: /mgp-agreements-criteria-frontend(/|$)(.*)
+          backend:
+            serviceName: mgp-agreements-criteria-frontend
+            servicePort: 80   
+        - path: /mgp-kzn-integration(/|$)(.*)
+          backend:
+            serviceName: mgp-kzn-integration
+            servicePort: 80 
+        - path: /mgp-subject-rf-frontend(/|$)(.*)
+          backend:
+            serviceName: mgp-subject-rf-frontend
+            servicePort: 80 
+        - path: /mpg-maintaining-business-information(/|$)(.*)
+          backend:
+            serviceName: mpg-maintaining-business-information
+            servicePort: 80 
+        - path: /needs-service(/|$)(.*)
+          backend:
+            serviceName: needs-service
+            servicePort: 80  
+        - path: /support-agreement(/|$)(.*)
+          backend:
+            serviceName: support-agreement
+            servicePort: 80
+        - path: /support-agreement-frontend(/|$)(.*)
+          backend:
+            serviceName: support-agreement-frontend
+            servicePort: 80       

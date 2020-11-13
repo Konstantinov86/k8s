@@ -4,8 +4,8 @@ metadata:
   name: cpu-limit-range
 spec:
   limits:
-  - default:
-      cpu: 0.5
-    defaultRequest:
-      cpu: 0.1
+  - max:
+      cpu: "300m"
+    min:
+      cpu: "200m"
     type: Container
