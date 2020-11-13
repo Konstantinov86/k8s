@@ -139,3 +139,11 @@ spec:
             backend:
               serviceName: reconciliation-frontend
               servicePort: 80
+          - path: /(needs-service)(/|$)(.*)
+            backend:
+              serviceName: needs-service
+              servicePort: 80
+          - path: /(mgp-subject-rf-frontend)(/|$)(.*)
+            backend:
+              serviceName:  mgp-subject-rf-frontend
+              servicePort: 80
