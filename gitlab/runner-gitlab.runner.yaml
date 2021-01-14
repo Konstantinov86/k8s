@@ -103,66 +103,38 @@ metadata:
                   k:{"name":"KUBERNETES_MEMORY_REQUEST"}:
                     .: {}
                     f:name: {}
-                  k:{"name":"KUBERNETES_MEMORY_REQUEST_OVERWRITE_MAX_ALLOWED"}:
-                    .: {}
-                    f:name: {}
-                  k:{"name":"KUBERNETES_NAMESPACE"}:
-                    .: {}
-                    f:name: {}
-                    f:value: {}
-                  k:{"name":"KUBERNETES_POLL_TIMEOUT"}:
-                    .: {}
-                    f:name: {}
-                    f:value: {}
-                  k:{"name":"KUBERNETES_PRIVILEGED"}:
-                    .: {}
-                    f:name: {}
-                    f:value: {}
-                  k:{"name":"KUBERNETES_PULL_POLICY"}:
-                    .: {}
-                    f:name: {}
-                  k:{"name":"KUBERNETES_SERVICE_ACCOUNT"}:
-                    .: {}
-                    f:name: {}
-                  k:{"name":"KUBERNETES_SERVICE_CPU_LIMIT"}:
-                    .: {}
-                    f:name: {}
-                  k:{"name":"KUBERNETES_SERVICE_CPU_REQUEST"}:
-                    .: {}
-                    f:name: {}
-                  k:{"name":"KUBERNETES_SERVICE_MEMORY_LIMIT"}:
-                    .: {}
-                    f:name: {}
-                  k:{"name":"KUBERNETES_SERVICE_MEMORY_REQUEST"}:
-                    .: {}
-                    f:name: {}
-                  k:{"name":"REGISTER_LOCKED"}:
-                    .: {}
-                    f:name: {}
-                    f:value: {}
-                  k:{"name":"RUNNER_EXECUTOR"}:
-                    .: {}
-                    f:name: {}
-                    f:value: {}
-                  k:{"name":"RUNNER_OUTPUT_LIMIT"}:
-                    .: {}
-                    f:name: {}
-                    f:value: {}
-                  k:{"name":"RUNNER_REQUEST_CONCURRENCY"}:
-                    .: {}
-                    f:name: {}
-                    f:value: {}
-                  k:{"name":"RUNNER_TAG_LIST"}:
-                    .: {}
-                    f:name: {}
-                f:image: {}
-                f:imagePullPolicy: {}
-                f:livenessProbe:
-                  .: {}
-                  f:exec:
-                    .: {}
-                    f:command: {}
-                  f:failureThreshold: {}
+                  k:{"name":"KUBERNETES_MEMORY_REQUEST_[?1000h[?1049h[>4;2m[?1h=[?2004h[?12h[?12l[27m[29m[m[H[2J[?25l[1;1H[96m# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#[m
+[1m[96mapiVersion[m[38;5;224m:[m apps/v1
+[1m[96mkind[m[38;5;224m:[m Deployment
+[1m[96mmetadata[m[38;5;224m:[m
+  [1m[96mannotations[m[38;5;224m:[m
+    [1m[96mdeployment.kubernetes.io/revision[m[38;5;224m:[m [95m"2"[m
+  [1m[96mcreationTimestamp[m[38;5;224m:[m [95m"2020-11-25T08:36:42Z"[m
+  [1m[96mgeneration[m[38;5;224m:[m [95m2[m
+  [1m[96mlabels[m[38;5;224m:[m
+    [1m[96mapp[m[38;5;224m:[m runner-gitlab-runner
+    [1m[96mchart[m[38;5;224m:[m gitlab-runner-0.21.1
+    [1m[96mheritage[m[38;5;224m:[m Tiller
+    [1m[96mrelease[m[38;5;224m:[m runner
+  [1m[96mname[m[38;5;224m:[m runner-gitlab-runner
+  [1m[96mnamespace[m[38;5;224m:[m gitlab-managed-apps
+  [1m[96mresourceVersion[m[38;5;224m:[m [95m"30887614"[m
+  [1m[96mselfLink[m[38;5;224m:[m /apis/apps/v1/namespaces/gitlab-managed-apps/deployments/runner-gitlab-runner
+  [1m[96muid[m[38;5;224m:[m c12a289b-2ac7-4da6-b078-a059cd410bb8
+[1m[96mspec[m[38;5;224m:[m
+  [1m[96mprogressDeadlineSeconds[m[38;5;224m:[m [95m600[m
+  [1m[96mreplicas[m[38;5;224m:[m [95m1[m
+  [1m[96mrevisionHistoryLimit[m[38;5;224m:[m [95m10[m
+  [1m[96mselector[m[38;5;224m:[m
+    [1m[96mmatchLabels[m[38;5;224m:[m[28;7H[1m[96mapp[m[38;5;224m:[m runner-gitlab-runner
+  [1m[96mstrategy[m[38;5;224m:[m
+    [1m[96mrollingUpdate[m[38;5;224m:[m[31;124H1,1[11CTop[1;1H[?25h[?25l[31;1H[97m[41mE211: File "/private/var/folders/0c/wfp3s0bs4qzfdthlx04pjjhh0000gn/T/kubectl-edit-b6nox.yaml" no longer available[m[31;124H[K[?1000l[?2004l[?2004h[?1000h[?1000l[31;1H
+Interrupt: [38;5;121mPress ENTER or type command to continue[?25h[m[?2004l[?1l>[>4;m[?1049lVim: Caught deadly signal HUP
+Vim: Finished.
+[31;1H[23;2t[23;1teshold: {}
                   f:initialDelaySeconds: {}
                   f:periodSeconds: {}
                   f:successThreshold: {}

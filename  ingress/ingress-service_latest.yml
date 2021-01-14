@@ -147,3 +147,12 @@ spec:
             backend:
               serviceName:  mgp-subject-rf-frontend
               servicePort: 80
+          - path: /(cash-execution)(/|$)(.*)
+            backend:
+              serviceName: cash-execution
+              servicePort: 80
+          - path: /(subjects-funding-agreements)(/|$)(.*)
+            backend:
+              serviceName: subjects-funding-agreements
+              servicePort: 80
+              
