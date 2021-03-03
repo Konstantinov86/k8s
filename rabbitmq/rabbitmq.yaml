@@ -1,0 +1,28 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+    name: rabbitmq
+spec:
+  service:
+    type: NodePort
+
+
+  replicas: 1
+  persistence:
+   storageClassName: persistence-rabbitmq-server
+  resources:
+    requests:
+      cpu: 256m
+      memory: 256Mi
+    limits:
+      cpu: 256m
+      memory: 256Mi
+ #affinity:
+ #   nodeAffinity:
+ #     requiredDuringSchedulingIgnoredDuringExecution:
+ #       nodeSelectorTerms:
+ #       - matchExpressions:
+  ##        - key: kubernetes.io/hostname
+   #         operator: In
+   #         values:
+   #         - gke-cluster-energy-default-pool-07d2611d-067b

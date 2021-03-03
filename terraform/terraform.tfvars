@@ -1,0 +1,7 @@
+project_id = "serious-energy-304109"
+region     = "europe-north1"
+zone       = "europe-north1-a"
+machine_type = "e2-standard-2"
+disk_size = "30"
+credentials ="~/.config/Project-2c482716f3fd.json"
+num_nodes = "4"
