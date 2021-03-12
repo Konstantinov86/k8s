@@ -427,7 +427,9 @@ tolerations: []
   # when you assign the gitlab runner manager with nodeSelector or affinity to the nodes.
   # - key: "node-role.kubernetes.io/worker"
   #   operator: "Exists"
-
+tolerations:
+ - key: node-role.kubernetes.io/master
+   effect: NoSchedule
 ## Configure environment variables that will be present when the registration command runs
 ## This provides further control over the registration process and the config.toml file
 ## ref: `gitlab-runner register --help`

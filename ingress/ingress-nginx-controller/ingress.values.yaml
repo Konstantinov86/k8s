@@ -1,0 +1,60 @@
+## nginx configuration
+## Ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/index.md
+##
+
+## Overrides for generated resource names
+# See templates/_helpers.tpl
+# nameOverride:
+# fullnameOverride:
+
+  
+  # Required for use with CNI based kubernetes installations (such as ones set up by kubeadm),
+  # since CNI and hostport don't mix yet. Can be deprecated once https://github.com/kubernetes/kubernetes/issues/23920
+  # is merged
+  hostNetwork: true
+
+
+  
+  ## Name of the ingress class to route through this controller
+  ##
+  ingressClass: nginx
+
+  
+  ## Additional command line arguments to pass to nginx-ingress-controller
+  ## E.g. to specify the default SSL certificate you can use
+  ## extraArgs:
+  ##   default-ssl-certificate: "<namespace>/<secret_name>"
+  extraArgs:
+    default-ssl-certificate: ingress-nginx/ingress-cert
+    ingress-class: nginx
+
+  ## Node tolerations for server scheduling to nodes with taints
+  ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+  ##
+  tolerations: 
+    - key: node-role.kubernetes.io/master
+      operator: "Exists"
+      effect: NoSchedule
+ 
+  ## Affinity and anti-affinity
+  ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+  ##
+  
+  ## Node labels for controller pod assignment
+  ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
+  ##
+  nodeSelector:
+    kubernetes.io/hostname: mgp-test-node1.fors.ru
+
+  
+    ports:
+      http: 80
+      https: 443
+
+    targetPorts:
+      http: http
+      https: https
+
+    type: ClusterIP
+
+    

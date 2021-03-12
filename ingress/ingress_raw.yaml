@@ -1,0 +1,215 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$3
+    nginx.ingress.kubernetes.io/x-forwarded-prefix: /$1
+  creationTimestamp: "2020-12-16T16:51:59Z"
+  generation: 26
+  managedFields:
+  - apiVersion: networking.k8s.io/v1beta1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:nginx.ingress.kubernetes.io/rewrite-target: {}
+          f:nginx.ingress.kubernetes.io/x-forwarded-prefix: {}
+    manager: dashboard
+    operation: Update
+    time: "2020-12-16T16:51:59Z"
+  - apiVersion: networking.k8s.io/v1beta1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:status:
+        f:loadBalancer:
+          f:ingress: {}
+    manager: nginx-ingress-controller
+    operation: Update
+    time: "2021-01-15T10:28:38Z"
+  - apiVersion: extensions/v1beta1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:spec:
+        f:rules: {}
+    manager: dashboard
+    operation: Update
+    time: "2021-03-09T11:25:40Z"
+  name: ingress-service
+  namespace: mgp
+  resourceVersion: "56228870"
+  selfLink: /apis/extensions/v1beta1/namespaces/mgp/ingresses/ingress-service
+  uid: 8d5738f6-58ad-4cd0-9901-ecc9564a096e
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: control-limit
+          servicePort: 80
+        path: /(control-limit)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: control-limit-frontend
+          servicePort: 80
+        path: /(control-limit-frontend)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: projects
+          servicePort: 80
+        path: /(projects)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: needs
+          servicePort: 80
+        path: /(needs)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: needs-frontend
+          servicePort: 80
+        path: /(needs-frontend)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: configurator
+          servicePort: 80
+        path: /(configurator)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: configurator-frontend
+          servicePort: 80
+        path: /(configurator-frontend)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: agroleasing
+          servicePort: 80
+        path: /(agroleasing)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: agroleasing-ral
+          servicePort: 80
+        path: /(agroleasing-ral)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: agroleasing-frontend
+          servicePort: 80
+        path: /(agroleasing-frontend)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: indicator-values-importer
+          servicePort: 80
+        path: /(indicator-values-importer)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: indicator-values-import-mapping
+          servicePort: 80
+        path: /(indicator-values-import-mapping)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: indicator-values-import-mapping-frontend
+          servicePort: 80
+        path: /(indicator-values-import-mapping-frontend)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: subjects-funding-agreements
+          servicePort: 80
+        path: /(subjects-funding-agreements)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: subjects-funding-agreements-frontend
+          servicePort: 80
+        path: /(subjects-funding-agreements-frontend)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: subjects-funding-agreements-reports
+          servicePort: 80
+        path: /(subjects-funding-agreements-reports)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: budget-assignations
+          servicePort: 80
+        path: /(budget-assignations)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: indicators-storage
+          servicePort: 80
+        path: /(indicators-storage)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: cash-execution
+          servicePort: 80
+        path: /(cash-execution)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: cash-execution-frontend
+          servicePort: 80
+        path: /(cash-execution-frontend)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: nsi-initializer
+          servicePort: 80
+        path: /(nsi-initializer)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: kzn-integration
+          servicePort: 80
+        path: /(kzn-integration)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: kzn-integration-soap-service
+          servicePort: 80
+        path: /(kzn-integration-soap-service)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: registration-request
+          servicePort: 80
+        path: /(registration-request)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: registration-request-frontend
+          servicePort: 80
+        path: /(registration-request-frontend)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: security
+          servicePort: 80
+        path: /(security)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: support-agreement
+          servicePort: 80
+        path: /(support-agreement)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: support-agreement-frontend
+          servicePort: 80
+        path: /(support-agreement-frontend)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: frontend
+          servicePort: 80
+        path: /(mgp-frontend)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: reestr-shtp
+          servicePort: 80
+        path: /(reestr-shtp)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: reestr-shtp-frontend
+          servicePort: 80
+        path: /(reestr-shtp-frontend)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: request-mgp-service
+          servicePort: 80
+        path: /(request-mgp-service)(/|$)(.*)
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: request-mgp-service-frontend
+          servicePort: 80
+        path: /(request-mgp-service-frontend)(/|$)(.*)
+        pathType: ImplementationSpecific
+status:
+  loadBalancer:
+    ingress:
+    - ip: 172.29.7.183

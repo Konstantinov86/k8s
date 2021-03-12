@@ -13,16 +13,16 @@ spec:
   resources:
     requests:
       cpu: 256m
-      memory: 256Mi
+      memory: 1024Mi
     limits:
       cpu: 256m
-      memory: 256Mi
- #affinity:
- #   nodeAffinity:
- #     requiredDuringSchedulingIgnoredDuringExecution:
- #       nodeSelectorTerms:
- #       - matchExpressions:
-  ##        - key: kubernetes.io/hostname
-   #         operator: In
-   #         values:
-   #         - gke-cluster-energy-default-pool-07d2611d-067b
+      memory: 1024Mi
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - mgp-test-node2.fors.ru
