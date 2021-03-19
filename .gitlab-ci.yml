@@ -1,0 +1,133 @@
+build_frontend:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"auth\":\"$(echo ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD} | base64)\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR/src/frontend --dockerfile $CI_PROJECT_DIR/src/frontend/Dockerfile --destination docker.io/wenger23/frontend:$CI_COMMIT_TAG
+  rules:
+    - if: $CI_COMMIT_TAG
+  
+build_adservice:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"auth\":\"$(echo ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD} | base64)\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR/src/adservice --dockerfile $CI_PROJECT_DIR/src/adservice/Dockerfile --destination docker.io/wenger23/adservice:$CI_COMMIT_TAG
+  rules:
+    - if: $CI_COMMIT_TAG
+
+build_cartservice:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"auth\":\"$(echo ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD} | base64)\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR/src/cartservice --dockerfile $CI_PROJECT_DIR/src/cartservice/Dockerfile --destination docker.io/wenger23/cartservice:$CI_COMMIT_TAG
+  rules:
+    - if: $CI_COMMIT_TAG
+
+build_checkoutservice:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"auth\":\"$(echo ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD} | base64)\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR/src/checkoutservice --dockerfile $CI_PROJECT_DIR/src/checkoutservice/Dockerfile --destination docker.io/wenger23/checkoutservice:$CI_COMMIT_TAG
+  rules:
+    - if: $CI_COMMIT_TAG
+
+build_currencyservice:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"auth\":\"$(echo ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD} | base64)\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR/src/currencyservice --dockerfile $CI_PROJECT_DIR/src/currencyservice/Dockerfile --destination docker.io/wenger23/currencyservice:$CI_COMMIT_TAG
+  rules:
+    - if: $CI_COMMIT_TAG
+
+build_emailservice:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"auth\":\"$(echo ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD} | base64)\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR/src/emailservice --dockerfile $CI_PROJECT_DIR/src/emailservice/Dockerfile --destination docker.io/wenger23/emailservice:$CI_COMMIT_TAG
+  rules:
+    - if: $CI_COMMIT_TAG
+
+build_loadgenerator:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"auth\":\"$(echo ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD} | base64)\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR/src/loadgenerator --dockerfile $CI_PROJECT_DIR/src/loadgenerator/Dockerfile --destination docker.io/wenger23/loadgenerator:$CI_COMMIT_TAG
+  rules:
+    - if: $CI_COMMIT_TAG
+
+build_paymentservice:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"auth\":\"$(echo ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD} | base64)\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR/src/paymentservice --dockerfile $CI_PROJECT_DIR/src/paymentservice/Dockerfile --destination docker.io/wenger23/paymentservice:$CI_COMMIT_TAG
+  rules:
+    - if: $CI_COMMIT_TAG   
+
+build_productcatalogservice:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"auth\":\"$(echo ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD} | base64)\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR/src/productcatalogservice --dockerfile $CI_PROJECT_DIR/src/productcatalogservice/Dockerfile --destination docker.io/wenger23/productcatalogservice:$CI_COMMIT_TAG
+  rules:
+    - if: $CI_COMMIT_TAG
+
+build_recommendationservice:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"auth\":\"$(echo ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD} | base64)\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR/src/recommendationservice --dockerfile $CI_PROJECT_DIR/src/recommendationservice/Dockerfile --destination docker.io/wenger23/productcatalogservice:$CI_COMMIT_TAG
+  rules:
+    - if: $CI_COMMIT_TAG
+
+build_shippingservice:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"auth\":\"$(echo ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD} | base64)\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR/src/shippingservice --dockerfile $CI_PROJECT_DIR/src/shippingservice/Dockerfile --destination docker.io/wenger23/productcatalogservice:$CI_COMMIT_TAG
+  rules:
+    - if: $CI_COMMIT_TAG
+
+  

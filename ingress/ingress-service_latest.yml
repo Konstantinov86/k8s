@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: ingress-service
-  namespace: mcx
+  namespace: mgp
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$3
     nginx.ingress.kubernetes.io/x-forwarded-prefix: /$1
@@ -139,3 +139,62 @@ spec:
             backend:
               serviceName: reconciliation-frontend
               servicePort: 80
+          - path: /(needs-service)(/|$)(.*)
+            backend:
+              serviceName: needs-service
+              servicePort: 80
+          - path: /(mgp-subject-rf-frontend)(/|$)(.*)
+            backend:
+              serviceName:  mgp-subject-rf-frontend
+              servicePort: 80
+          - path: /(cash-execution)(/|$)(.*)
+            backend:
+              serviceName: cash-execution
+              servicePort: 80
+          - path: /(cash-execution-frontend)(/|$)(.*)
+            backend:
+              serviceName: cash-execution-frontend
+              servicePort: 80
+          - path: /(subjects-funding-agreements)(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: subjects-funding-agreements
+              servicePort: 80
+          - path: /(indicator-values-importer)(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: indicator-values-importer
+              servicePort: 80
+          - path: /(projects)(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: projects
+              servicePort: 80
+          - path: /(needs)(/|$)(.*)
+            backend:
+              serviceName: needs
+              servicePort: 80
+          - path: /(needs-frontend)(/|$)(.*)
+            backend:
+              serviceName: needs-frontend
+              servicePort: 80
+          - path: /(configurator)(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: configurator
+              servicePort: 80
+          - path: /(configurator-frontend)(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: configurator-frontend
+              servicePort: 80
+          - path: /(registration-request)(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: registration-request
+              servicePort: 80
+          - path: /(registration-request-frontend)(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: registration-request-frontend
+              servicePort: 80   

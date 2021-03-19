@@ -1,0 +1,80 @@
+## nginx configuration
+## Ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/index.md
+##
+
+## Overrides for generated resource names
+# See templates/_helpers.tpl
+# nameOverride:
+# fullnameOverride:
+
+controller:
+  name: controller
+  image:
+    repository: k8s.gcr.io/ingress-nginx/controller
+    tag: "v0.44.0"
+    digest: sha256:3dd0fac48073beaca2d67a78c746c7593f9c575168a17139a9955a82c63c4b9a
+    pullPolicy: IfNotPresent
+    # www-data -> uid 101
+    runAsUser: 101
+    allowPrivilegeEscalation: true
+  
+  hostNetwork: true  
+  
+  service:
+    enabled: true
+
+
+    hostPort:
+      enabled: false
+      ports:
+        http: 80
+        https: 443
+    targetPorts:
+      http: http
+      https: https
+
+    type: ClusterIP
+
+
+  
+  ## Name of the ingress class to route through this controller
+  ##
+  ingressClass: nginx
+
+  
+  ## Additional command line arguments to pass to nginx-ingress-controller
+  ## E.g. to specify the default SSL certificate you can use
+  ## extraArgs:
+  ##   default-ssl-certificate: "<namespace>/<secret_name>"
+  extraArgs:
+    default-ssl-certificate: ingress-nginx/ingress-cert
+    ingress-class: nginx
+
+  ## Node tolerations for server scheduling to nodes with taints
+  ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+  ##
+  tolerations: 
+    - key: node-role.kubernetes.io/master
+      operator: "Exists"
+      effect: NoSchedule
+ 
+  ## Affinity and anti-affinity
+  ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+  ##
+  
+  ## Node labels for controller pod assignment
+  ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
+  ##
+  nodeSelector:
+    kubernetes.io/hostname: mgp-node1.fors.ru
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - mgp-node1.fors.ru
+
+    

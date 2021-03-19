@@ -142,6 +142,7 @@ runners:
     [[runners]]
       [runners.kubernetes]
         image = "ubuntu:16.04"
+        environment = ["FF_GITLAB_REGISTRY_HELPER_IMAGE=1"]
 
   ## Which executor should be used
   ##
@@ -306,7 +307,7 @@ runners:
     # cpuLimit: 200m
     # cpuLimitOverwriteMaxAllowed: 400m
   memoryLimit: 4096Mi
-    # memoryLimitOverwriteMaxAllowed: 512Mi
+  memoryLimitOverwriteMaxAllowed: 4096Mi
     # cpuRequests: 100m
     # cpuRequestsOverwriteMaxAllowed: 200m
     # memoryRequests: 128Mi
@@ -317,7 +318,7 @@ runners:
   ## DEPRECATED: See https://docs.gitlab.com/runner/install/kubernetes.html#additional-configuration
   services: {}
     # cpuLimit: 200m
-    # memoryLimit: 256Mi
+     #memoryLimit: 256Mi
     # cpuRequests: 100m
     # memoryRequests: 128Mi
 
@@ -327,6 +328,7 @@ runners:
   helpers: {}
     # cpuLimit: 200m
   memoryLimit: 4096Mi
+  memoryLimitOverwriteMaxAllowed: 4096Mi
     # cpuRequests: 100m
     # memoryRequests: 128Mi
     # image: "gitlab/gitlab-runner-helper:x86_64-${CI_RUNNER_REVISION}"
@@ -427,7 +429,9 @@ tolerations: []
   # when you assign the gitlab runner manager with nodeSelector or affinity to the nodes.
   # - key: "node-role.kubernetes.io/worker"
   #   operator: "Exists"
-
+tolerations:
+ - key: node-role.kubernetes.io/master
+   effect: NoSchedule
 ## Configure environment variables that will be present when the registration command runs
 ## This provides further control over the registration process and the config.toml file
 ## ref: `gitlab-runner register --help`
