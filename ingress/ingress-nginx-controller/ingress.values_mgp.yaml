@@ -7,11 +7,33 @@
 # nameOverride:
 # fullnameOverride:
 
+controller:
+  name: controller
+  image:
+    repository: k8s.gcr.io/ingress-nginx/controller
+    tag: "v0.44.0"
+    digest: sha256:3dd0fac48073beaca2d67a78c746c7593f9c575168a17139a9955a82c63c4b9a
+    pullPolicy: IfNotPresent
+    # www-data -> uid 101
+    runAsUser: 101
+    allowPrivilegeEscalation: true
   
-  # Required for use with CNI based kubernetes installations (such as ones set up by kubeadm),
-  # since CNI and hostport don't mix yet. Can be deprecated once https://github.com/kubernetes/kubernetes/issues/23920
-  # is merged
-  hostNetwork: true
+  hostNetwork: true  
+  
+  service:
+    enabled: true
+
+
+    hostPort:
+      enabled: false
+      ports:
+        http: 80
+        https: 443
+    targetPorts:
+      http: http
+      https: https
+
+    type: ClusterIP
 
 
   
@@ -44,17 +66,15 @@
   ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
   ##
   nodeSelector:
-    kubernetes.io/hostname: mgp-test-node1.fors.ru
-
-  
-    ports:
-      http: 80
-      https: 443
-
-    targetPorts:
-      http: http
-      https: https
-
-    type: ClusterIP
+    kubernetes.io/hostname: mgp-node1.fors.ru
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - mgp-node1.fors.ru
 
     
