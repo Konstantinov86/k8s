@@ -420,9 +420,7 @@ metadata:
     helm.sh/chart: ingress-nginx-2.9.0
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/instance: ingress-nginx
-    app.kubern
-    
-    etes.io/version: 0.33.0
+    app.kubernetes.io/version: 0.33.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: admission-webhook
   name: ingress-nginx-admission
