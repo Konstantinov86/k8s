@@ -197,8 +197,8 @@ spec:
           args:
             # --auto-generate-certificates
             - --namespace=kubernetes-dashboard
-            - --tls-cert-file=/etc/ssl/certs/forsr/fullchain1.pem
-            - --tls-key-file=/etc/ssl/certs/fors/privkey1.pem
+            - --tls-cert-file=/fullchain1.pem
+            - --tls-key-file=/privkey1.pem
             # Uncomment the following line to manually specify Kubernetes API server Host
             # If not specified, Dashboard will attempt to auto discover the API server and connect
             # to it. Uncomment only if the default does not work.
@@ -229,7 +229,7 @@ spec:
           emptyDir: {}
       serviceAccountName: kubernetes-dashboard
       nodeSelector:
-        "kubernetes.io/os": linux
+        kubernetes.io/hostname: mgp1.fors.ru
       # Comment the following tolerations if Dashboard must not be deployed on master
       tolerations:
         - key: node-role.kubernetes.io/master
