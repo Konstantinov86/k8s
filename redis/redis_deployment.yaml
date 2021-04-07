@@ -2,7 +2,7 @@ apiVersion: databases.spotahome.com/v1
 kind: RedisFailover
 metadata:
   name: redisfailover
-  namespace: mgp
+#  namespace: mgp
 spec:
   sentinel:
     replicas: 2

@@ -1,0 +1,43 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+    name: rabbitmq-dev
+    namespace: dev
+spec:
+  service:
+    type: NodePort
+ #   ports:
+ #     - name: ampq
+ #       port: 5672
+ #       targetPort: 5672
+ #       nodeport: 30672
+ #     - name: console
+ #       port: 15672
+ #       targetPort: 15672
+ #       nodeport: 31672
+  rabbitmq:
+    additionalPlugins:
+      - rabbitmq_shovel
+      - rabbitmq_shovel_management
+
+
+
+  replicas: 1
+  persistence:
+   storageClassName: local-rabbitmq-dev-pv-on-mgp3.fors.ru
+  resources:
+    requests:
+      cpu: 256m
+      memory: 1024Mi
+    limits:
+      cpu: 256m
+      memory: 1024Mi
+  #affinity:
+  #  nodeAffinity:
+  #    requiredDuringSchedulingIgnoredDuringExecution:
+  #      nodeSelectorTerms:
+  #      - matchExpressions:
+  #        - key: kubernetes.io/hostname
+  #          operator: In
+  #          values:
+  #          - mgp-test-node2.fors.ru

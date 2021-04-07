@@ -1,0 +1,57 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: rabbitmq-dev
+  namespace: dev
+spec:
+  replicas: 1
+  override:
+    statefulSet:
+      spec:
+        template:
+          spec:
+            containers:
+            - name: rabbitmq
+              volumeMounts:
+              - mountPath: /tmp/ # filename left out intentionally
+                name: definitions
+            volumes:
+            - name: definitions
+              configMap:
+                name: definitions # Name of the ConfigMap which contains definitions you wish to import
+  rabbitmq:
+    additionalConfig: |
+      load_definitions = /tmp/def.json # Path to the mounted definitions file
+    additionalPlugins:
+      - rabbitmq_shovel
+      - rabbitmq_shovel_management
+  service:
+    type: NodePort
+ #   ports:
+ #     - name: ampq
+ #       port: 5672
+ #       targetPort: 5672
+ #       nodeport: 30672
+ #     - name: console
+ #       port: 15672
+ #       targetPort: 15672
+ #       nodeport: 31672
+
+  persistence:
+   storageClassName: local-rabbitmq-dev-pv-on-mgp3.fors.ru
+  resources:
+    requests:
+      cpu: 256m
+      memory: 1024Mi
+    limits:
+      cpu: 256m
+      memory: 1024Mi
+  #affinity:
+  #  nodeAffinity:
+  #    requiredDuringSchedulingIgnoredDuringExecution:
+  #      nodeSelectorTerms:
+  #      - matchExpressions:
+  #        - key: kubernetes.io/hostname
+  #          operator: In
+  #          values:
+  #          - mgp-test-node2.fors.ru
