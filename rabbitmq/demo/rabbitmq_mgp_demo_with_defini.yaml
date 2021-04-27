@@ -1,8 +1,8 @@
 apiVersion: rabbitmq.com/v1beta1
 kind: RabbitmqCluster
 metadata:
-  name: rabbitmq-dev
-  namespace: dev
+  name: rabbitmq-demo
+  namespace: demo
 spec:
   replicas: 1
   override:
@@ -36,10 +36,9 @@ spec:
  #       port: 15672
  #       targetPort: 15672
  #       nodeport: 31672
-
   persistence:
-   storageClassName: local-rabbitmq-dev-pv-on-mgp3.fors.ru
-  resources:
+   storageClassName: local-rabbitmq-demo-pv-on-mgp5.fors.ru
+  resources:         
     requests:
       cpu: 256m
       memory: 1024Mi
