@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: rabbitmq-dev-pv-on-mgp3.fors.ru
+  name: rabbitmq-demo-pv-on-mgp5.fors.ru
 spec:
   capacity:
     storage: 10Gi
@@ -9,7 +9,7 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: local-rabbitmq-dev-pv-on-mgp3.fors.ru
+  storageClassName: local-rabbitmq-demo-pv-on-mgp5.fors.ru
   local:
     path: /opt/persistence-rabbitmq-server
   nodeAffinity:
@@ -19,4 +19,4 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - mgp3.fors.ru
+          - mgp5.fors.ru

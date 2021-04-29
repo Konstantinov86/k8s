@@ -96,7 +96,7 @@ data:
             "user": "blitz",
             "vhost": "/",
             "configure": "",
-            "write": "^.*\.users(\..*)?$",
+            "write": "users",
             "read": ""
         }, {
             "user": "organizational-structure",
@@ -315,7 +315,7 @@ data:
         }, {
             "source": "users",
             "vhost": "/",
-            "destination": "users.organization-structure",
+            "destination": "users.organizational-structure",
             "destination_type": "queue",
             "routing_key": "registration",
             "arguments": {}
