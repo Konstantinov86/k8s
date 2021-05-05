@@ -1,0 +1,23 @@
+apiVersion: "kafka.strimzi.io/v1alpha1"
+kind: "KafkaConnector"
+metadata:
+  name: "mgpnsi-connector"
+  labels:
+    strimzi.io/cluster: debezium-connector-postgres
+spec:
+  class: io.debezium.connector.postgresql.PostgresConnector
+  tasksMax: 1
+  config:
+    plugin.name: pgoutput
+    publication.name: dbz_publication
+    database.hostname: mgp-db.fors.ru
+    database.port: "5432"
+    database.user: "${file:/opt/kafka/external-configuration/connector-config/debezium-postgres-credentials.properties:POSTGRES_USER}"
+    database.password: "${file:/opt/kafka/external-configuration/connector-config/debezium-postgres-credentials.properties:POSTGRES_PASSWORD}"
+    database.dbname: "mgp_nsi"
+    database.server.name: "mgp_nsi"
+    schema.include.list: "public"
+    table.include.list: public.record,public.value
+    database.history.kafka.bootstrap.servers: "kafka-kafka-bootstrap:9092"
+    database.history.kafka.topic: "schema-changes.mgp_nsi"
+    include.schema.changes: "true" 
