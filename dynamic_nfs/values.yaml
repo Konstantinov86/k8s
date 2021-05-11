@@ -8,7 +8,7 @@ image:
 
 nfs:
   server: 172.29.7.227
-  path: /var/nfs/nfs-storage
+  path: /var/nfs-storage
   mountOptions:
 
 # For creating the StorageClass automatically:

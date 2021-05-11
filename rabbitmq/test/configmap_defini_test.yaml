@@ -56,6 +56,13 @@ data:
             "hashing_algorithm": "rabbit_password_hashing_sha256",
             "tags": "",
             "limits": {}
+        },
+        {
+            "name": "registration-request",
+            "password_hash": "k3q+rWZzccfF/ZYR1/0L60NsSAdz2E+0KtvGaH1/dw8f5d0m",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": "",
+            "limits": {}
         }
     ],
     "vhosts": [{
@@ -110,6 +117,12 @@ data:
             "configure": "",
             "write": "",
             "read": "^.*\.security(\..*)?$"
+        }, {
+            "user": "registration-request",
+            "vhost": "/",
+            "configure": "",
+            "write": "",
+            "read": "^.*\.registration-request(\..*)?$"
         }
     ],
     "topic_permissions": [],
@@ -189,6 +202,14 @@ data:
             }
         }, {
             "name": "users.security",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {
+                "x-queue-type": "classic"
+            }
+        }, {
+            "name": "users.registration-request",
             "vhost": "/",
             "durable": true,
             "auto_delete": false,
@@ -330,6 +351,13 @@ data:
             "source": "users",
             "vhost": "/",
             "destination": "users.security",
+            "destination_type": "queue",
+            "routing_key": "registration",
+            "arguments": {}
+        }, {
+            "source": "users",
+            "vhost": "/",
+            "destination": "users.registration-request",
             "destination_type": "queue",
             "routing_key": "registration",
             "arguments": {}
