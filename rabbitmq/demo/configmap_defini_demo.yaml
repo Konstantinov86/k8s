@@ -31,6 +31,12 @@ data:
             "tags": "",
             "limits": {}
         }, {
+            "name": "kzn-integration",
+            "password_hash": "6m0X/g5tYOMBWptbvVnQP6nu3v2VbZV0AeZcOv151SbLT6dA",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": "",
+            "limits": {}
+        }, {
             "name": "blitz",
             "password_hash": "QavQkmRzRLMpwtV9Xn6JLLNwXt8GxTvzuichngznat84rQe4",
             "hashing_algorithm": "rabbit_password_hashing_sha256",
@@ -94,6 +100,12 @@ data:
             "write": "measure-quotas",
             "read": "^.*\.control-limit(\..*)?$"
         }, {
+            "user": "kzn-integration",
+            "vhost": "/",
+            "configure": ".*",
+            "write": "^(message-logs)$",
+            "read": "^.*\.kzn-integration(\..*)?$"
+        }, {
             "user": "subjects-funding-agreements",
             "vhost": "/",
             "configure": ".*",
@@ -125,7 +137,7 @@ data:
             "read": "^.*\.registration-request(\..*)?$"
         }
     ],
-    "topic_permissions": [],
+     "topic_permissions": [],
     "parameters": [],
     "policies": [],
     "queues": [{
@@ -162,6 +174,14 @@ data:
             }
         }, {
             "name": "programs.needs",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {
+                "x-queue-type": "classic"
+            }
+        }, {
+            "name": "message-logs.kzn-integration",
             "vhost": "/",
             "durable": true,
             "auto_delete": false,
@@ -259,6 +279,14 @@ data:
             "internal": false,
             "arguments": {}
         }, {
+            "name": "message-logs",
+            "vhost": "/",
+            "type": "direct",
+            "durable": true,
+            "auto_delete": false,
+            "internal": false,
+            "arguments": {}
+        }, {
             "name": "subprograms",
             "vhost": "/",
             "type": "direct",
@@ -309,6 +337,13 @@ data:
             "source": "main-measures",
             "vhost": "/",
             "destination": "main-measures.needs",
+            "destination_type": "queue",
+            "routing_key": "#",
+            "arguments": {}
+        }, {
+            "source": "message-logs",
+            "vhost": "/",
+            "destination": "message-logs.kzn-integration",
             "destination_type": "queue",
             "routing_key": "#",
             "arguments": {}
