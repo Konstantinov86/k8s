@@ -9,8 +9,8 @@ spec:
   tasksMax: 1
   config:
     plugin.name: pgoutput
-    snapshot.mode: always
-    slot.name: debezium_mgpnsidemo
+    snapshot.mode: exported
+    slot.name: debezium_mgpnsidemo_slot
     heartbeat.interval.ms: 100000
     publication.name: mgpnsidemo_publication
     database.hostname: mgp-db.fors.ru
