@@ -55,7 +55,12 @@ data:
             "tags": "",
             "limits": {}
          
-        
+        }, {
+            "name": "NoticeQueue",
+            "password_hash": "AGZUTynv46FmFZYaLzKGL+eVahEaagVo3bPFp70Zuim5Y46q",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": "",
+            "limits": {}
         }, {
             "name": "security",
             "password_hash": "i9cpzp/giSldI66CqHQgLe8IBvfhhaIAR4J1pyELXdxF1HBQ",
@@ -122,6 +127,12 @@ data:
             "configure": "",
             "write": "",
             "read": "^.*\.organizational-structure(\..*)?$"
+        }, {
+            "user": "NoticeQueue",
+            "vhost": "/",
+            "configure": "",
+            "write": "^.*informing(\..*)?$",
+            "read": "^.*informing(\..*)?$"
         }, {
             "user": "security",
             "vhost": "/",
@@ -220,6 +231,14 @@ data:
                 "x-queue-type": "classic"
             }
         }, {
+            "name": "informing.NoticeQueue",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {
+                "x-queue-type": "classic"
+            }
+        }, {
             "name": "users.security",
             "vhost": "/",
             "durable": true,
@@ -247,6 +266,14 @@ data:
             "arguments": {}
         }, {
             "name": "programs",
+            "vhost": "/",
+            "type": "direct",
+            "durable": true,
+            "auto_delete": false,
+            "internal": false,
+            "arguments": {}
+        }, {
+            "name": "informing",
             "vhost": "/",
             "type": "direct",
             "durable": true,
@@ -378,6 +405,13 @@ data:
             "source": "subprograms",
             "vhost": "/",
             "destination": "subprograms.needs",
+            "destination_type": "queue",
+            "routing_key": "#",
+            "arguments": {}
+        }, {
+            "source": "informing",
+            "vhost": "/",
+            "destination": "informing.NoticeQueue",
             "destination_type": "queue",
             "routing_key": "#",
             "arguments": {}

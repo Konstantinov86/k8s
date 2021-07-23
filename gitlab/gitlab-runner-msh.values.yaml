@@ -140,12 +140,11 @@ metrics:
 runners:
   config: |
     [[runners]]
-      cache_dir = "/tmp/mavencache"
+
       [runners.kubernetes]
         image = "ubuntu:16.04"
         [[runners.kubernetes.volumes.pvc]]
-          name = "mavencache"
-          mount_path = "/tmp/mavencache"
+
       [runners.feature_flags]
         FF_GITLAB_REGISTRY_HELPER_IMAGE = true
 
@@ -186,7 +185,7 @@ runners:
   ## ref: https://docs.gitlab.com/ce/ci/runners/#use-tags-to-limit-the-number-of-jobs-using-the-runner
   ##
   #tags: "mgp","cluster","kubernetes"
-  tags: "mgp-final" 
+  tags: "msh" 
   ## Specify the name for the runner.
   ##
   # name: ""
@@ -425,7 +424,7 @@ affinity: {}
 nodeSelector: {}
 
 nodeSelector:
-  kubernetes.io/hostname: mgp1.fors.ru
+  kubernetes.io/hostname: msh-node1.fors.ru
   # Example: The gitlab runner manager should not run on spot instances so you can assign
   # them to the regular worker nodes only.
   # node-role.kubernetes.io/worker: "true"

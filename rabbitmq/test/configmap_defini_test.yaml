@@ -30,6 +30,12 @@ data:
             "hashing_algorithm": "rabbit_password_hashing_sha256",
             "tags": "",
             "limits": {}
+        }, {         
+           "name": "kzn-integration",
+            "password_hash": "6m0X/g5tYOMBWptbvVnQP6nu3v2VbZV0AeZcOv151SbLT6dA",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": "",
+            "limits": {}
         }, {
             "name": "blitz",
             "password_hash": "QavQkmRzRLMpwtV9Xn6JLLNwXt8GxTvzuichngznat84rQe4",
@@ -169,6 +175,14 @@ data:
                 "x-queue-type": "classic"
             }
         }, {
+            "name": "message-logs.kzn-integration",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {
+                "x-queue-type": "classic"
+            }
+        }, {
             "name": "measures.needs.properties",
             "vhost": "/",
             "durable": true,
@@ -259,6 +273,14 @@ data:
             "internal": false,
             "arguments": {}
         }, {
+            "name": "message-logs",
+            "vhost": "/",
+            "type": "direct",
+            "durable": true,
+            "auto_delete": false,
+            "internal": false,
+            "arguments": {}
+        }, {
             "name": "subprograms",
             "vhost": "/",
             "type": "direct",
@@ -309,6 +331,13 @@ data:
             "source": "main-measures",
             "vhost": "/",
             "destination": "main-measures.needs",
+            "destination_type": "queue",
+            "routing_key": "#",
+            "arguments": {}
+        }, {
+            "source": "message-logs",
+            "vhost": "/",
+            "destination": "message-logs.kzn-integration",
             "destination_type": "queue",
             "routing_key": "#",
             "arguments": {}
