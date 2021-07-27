@@ -1,0 +1,21 @@
+---  
+  apiVersion: networking.k8s.io/v1
+  kind: Ingress
+  metadata:
+    name: ingress-proxy-service
+    namespace: prod
+    annotations:
+
+      nginx.ingress.kubernetes.io/x-forwarded-prefix: "/"
+  spec:
+    rules:
+    - host: cab.dev-mcx.ru
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: session-proxy
+              port:
+                number: 80

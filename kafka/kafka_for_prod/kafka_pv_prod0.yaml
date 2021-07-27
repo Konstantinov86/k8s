@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: kafka-prod-0
+spec:
+  capacity:
+    storage: 20Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteMany
+  claimRef:
+    kind: PersistentVolumeClaim
+    namespace: prod
+    name: data-0-kafka-kafka-0
+  persistentVolumeReclaimPolicy: Retain
+#  storageClassName: kafka-prod
+  nfs:
+    server: drbd-cluster.tr.local
+    path: /data/kafka3
+ 

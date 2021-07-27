@@ -2,9 +2,9 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: nfs-pvc-2
-  namespace: test
+  namespace: kafka
 spec:
-  storageClassName: nfs-storage
+  storageClassName: kafka-storage
   accessModes:
     - ReadWriteMany
   resources:

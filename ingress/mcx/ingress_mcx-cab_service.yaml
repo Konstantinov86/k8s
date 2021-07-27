@@ -1,0 +1,32 @@
+---  
+  apiVersion: networking.k8s.io/v1
+  kind: Ingress
+  metadata:
+    name: ingress-proxy-service
+    namespace: mcx
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /$3
+      nginx.ingress.kubernetes.io/x-forwarded-prefix: /$1
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  spec:
+    rules:
+    - host: cab.dev-mcx.ru
+      http:
+        paths:
+        - path: /(nsi-initalizer)(/|$)(.*)
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: nsi-initalizer
+              port:
+                number: 80
+        - path: /(projects)(/|$)(.*)
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: projects
+              port:
+                number: 80
+
+
+   
