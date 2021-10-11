@@ -55,7 +55,12 @@ data:
             "tags": "",
             "limits": {}
          
-        
+        }, {
+            "name": "NoticeQueue",
+            "password_hash": "1gUO95BNJMqQ+wkQsjlSdR9K/dRPomC9Ky94UlBVlfd81SIG",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": "",
+            "limits": {}
         }, {
             "name": "security",
             "password_hash": "i9cpzp/giSldI66CqHQgLe8IBvfhhaIAR4J1pyELXdxF1HBQ",
@@ -65,6 +70,18 @@ data:
         }, {
             "name": "registration-request",
             "password_hash": "k3q+rWZzccfF/ZYR1/0L60NsSAdz2E+0KtvGaH1/dw8f5d0m",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": "",
+            "limits": {}
+        }, {
+            "name": "nsi",
+            "password_hash": "T/Z0KUmb1iV4llTUEB/HX4MMDA6EYQz00FPqLT0SakKEeFXf",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": "",
+            "limits": {}
+        }, {
+            "name": "nsi-transformer",
+            "password_hash": "TBj2wDvGyOC9zNzUDI6zat+3Mc4A4FoOqu72v8nGA+joyGkG",
             "hashing_algorithm": "rabbit_password_hashing_sha256",
             "tags": "",
             "limits": {}
@@ -123,6 +140,12 @@ data:
             "write": "",
             "read": "^.*\.organizational-structure(\..*)?$"
         }, {
+            "user": "NoticeQueue",
+            "vhost": "/",
+            "configure": "",
+            "write": "^.*informing(\..*)?$",
+            "read": "^.*informing(\..*)?$"
+        }, {
             "user": "security",
             "vhost": "/",
             "configure": "",
@@ -134,7 +157,20 @@ data:
             "configure": "",
             "write": "",
             "read": "^.*\.registration-request(\..*)?$"
+        }, {
+            "user": "nsi",
+            "vhost": "/",
+            "configure": ".*",
+            "write": "^nsi.*",
+            "read": "^nsi.*"
+         }, {
+            "user": "nsi-transformer",
+            "vhost": "/",
+            "configure": "",
+            "write": "",
+            "read": "^nsi.*"
         }
+        
     ],
     "topic_permissions": [],
     "parameters": [],
@@ -220,6 +256,14 @@ data:
                 "x-queue-type": "classic"
             }
         }, {
+            "name": "informing.NoticeQueue",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {
+                "x-queue-type": "classic"
+            }
+        }, {
             "name": "users.security",
             "vhost": "/",
             "durable": true,
@@ -233,9 +277,18 @@ data:
             "durable": true,
             "auto_delete": false,
             "arguments": {
-                "x-queue-type": "classic"
+            "x-queue-type": "classic"
             }
-        }
+        }, {
+            "name": "nsi-transformer.record.event",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {
+            "x-queue-type": "classic",
+            "x-single-active-consumer": "true"
+            }
+     }       
     ],
     "exchanges": [{
             "name": "indicators",
@@ -247,6 +300,14 @@ data:
             "arguments": {}
         }, {
             "name": "programs",
+            "vhost": "/",
+            "type": "direct",
+            "durable": true,
+            "auto_delete": false,
+            "internal": false,
+            "arguments": {}
+        }, {
+            "name": "informing",
             "vhost": "/",
             "type": "direct",
             "durable": true,
@@ -305,6 +366,14 @@ data:
             "name": "users",
             "vhost": "/",
             "type": "direct",
+            "durable": true,
+            "auto_delete": false,
+            "internal": false,
+            "arguments": {}
+        }, {
+            "name": "nsi.record.event",
+            "vhost": "/",
+            "type": "fanout",
             "durable": true,
             "auto_delete": false,
             "internal": false,
@@ -382,6 +451,13 @@ data:
             "routing_key": "#",
             "arguments": {}
         }, {
+            "source": "informing",
+            "vhost": "/",
+            "destination": "informing.NoticeQueue",
+            "destination_type": "queue",
+            "routing_key": "#",
+            "arguments": {}
+        }, {
             "source": "users",
             "vhost": "/",
             "destination": "users.security",
@@ -394,6 +470,13 @@ data:
             "destination": "users.registration-request",
             "destination_type": "queue",
             "routing_key": "registration",
+            "arguments": {}
+        }, {
+            "source": "nsi.record.event",
+            "vhost": "/",
+            "destination": "nsi-transformer.record.event",
+            "destination_type": "queue",
+            "routing_key": "#",
             "arguments": {}
         }
     ]

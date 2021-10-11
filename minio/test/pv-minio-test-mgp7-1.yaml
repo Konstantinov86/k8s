@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+   name: pv-minio-test-mgp7-1
+spec:
+   capacity:
+      storage: 5Gi
+   volumeMode: Filesystem
+   accessModes:
+   - ReadWriteOnce
+   persistentVolumeReclaimPolicy: Retain
+   storageClassName: minio-storageclass-test
+   local:
+     path: /opt/minio-test/1
+   nodeAffinity:
+     required:
+       nodeSelectorTerms:
+       - matchExpressions:
+         - key: kubernetes.io/hostname
+           operator: In
+           values:
+           - mgp7.fors.ru

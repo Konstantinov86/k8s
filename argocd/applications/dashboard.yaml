@@ -1,0 +1,286 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  creationTimestamp: "2021-08-05T10:04:54Z"
+  generation: 19
+  name: dashboard
+  namespace: argocd
+  resourceVersion: "47619418"
+  uid: dd1c52a0-7a8f-49d8-a6a4-befed2ab67f1
+spec:
+  destination:
+    namespace: kubernetes-dashboard
+    server: https://kubernetes.default.svc
+  project: main-infra
+  source:
+    path: dashboard
+    repoURL: https://gitlab.fors.ru/mgp/main-infra.git
+    targetRevision: HEAD
+status:
+  health:
+    status: Healthy
+  history:
+  - deployStartedAt: "2021-08-05T10:06:26Z"
+    deployedAt: "2021-08-05T10:06:31Z"
+    id: 0
+    revision: 44b4868857cb7423de4cc48df495a6fffd7139b8
+    source:
+      path: dashboard
+      repoURL: https://gitlab.fors.ru/mgp/main-infra.git
+      targetRevision: HEAD
+  operationState:
+    finishedAt: "2021-08-05T10:06:31Z"
+    message: successfully synced (all tasks run)
+    operation:
+      initiatedBy:
+        username: admin
+      retry: {}
+      sync:
+        revision: 44b4868857cb7423de4cc48df495a6fffd7139b8
+        syncStrategy:
+          hook: {}
+    phase: Succeeded
+    startedAt: "2021-08-05T10:06:26Z"
+    syncResult:
+      resources:
+      - group: ""
+        hookPhase: Running
+        kind: Namespace
+        message: namespace/kubernetes-dashboard configured
+        name: kubernetes-dashboard
+        namespace: kubernetes-dashboard
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Running
+        kind: Secret
+        message: secret/kubernetes-dashboard-csrf configured
+        name: kubernetes-dashboard-csrf
+        namespace: kubernetes-dashboard
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Running
+        kind: Secret
+        message: secret/kubernetes-dashboard-certs configured
+        name: kubernetes-dashboard-certs
+        namespace: kubernetes-dashboard
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Running
+        kind: Secret
+        message: 'secret/kubernetes-dashboard-key-holder configured. Warning: resource
+          secrets/kubernetes-dashboard-key-holder is missing the kubectl.kubernetes.io/last-applied-configuration
+          annotation which is required by  apply.  apply should only be used on resources
+          created declaratively by either  create --save-config or  apply. The missing
+          annotation will be patched automatically.'
+        name: kubernetes-dashboard-key-holder
+        namespace: kubernetes-dashboard
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Running
+        kind: ConfigMap
+        message: configmap/kubernetes-dashboard-settings configured
+        name: kubernetes-dashboard-settings
+        namespace: kubernetes-dashboard
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Running
+        kind: ServiceAccount
+        message: serviceaccount/kubernetes-dashboard configured
+        name: kubernetes-dashboard
+        namespace: kubernetes-dashboard
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: rbac.authorization.k8s.io
+        hookPhase: Running
+        kind: ClusterRole
+        message: clusterrole.rbac.authorization.k8s.io/kubernetes-dashboard reconciled.
+          reconciliation required update. clusterrole.rbac.authorization.k8s.io/kubernetes-dashboard
+          configured
+        name: kubernetes-dashboard
+        namespace: kubernetes-dashboard
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: rbac.authorization.k8s.io
+        hookPhase: Running
+        kind: ClusterRoleBinding
+        message: clusterrolebinding.rbac.authorization.k8s.io/kubernetes-dashboard
+          reconciled. reconciliation required update. clusterrolebinding.rbac.authorization.k8s.io/kubernetes-dashboard
+          configured
+        name: kubernetes-dashboard
+        namespace: kubernetes-dashboard
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: rbac.authorization.k8s.io
+        hookPhase: Running
+        kind: Role
+        message: role.rbac.authorization.k8s.io/kubernetes-dashboard reconciled. reconciliation
+          required update. role.rbac.authorization.k8s.io/kubernetes-dashboard configured
+        name: kubernetes-dashboard
+        namespace: kubernetes-dashboard
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: rbac.authorization.k8s.io
+        hookPhase: Running
+        kind: RoleBinding
+        message: rolebinding.rbac.authorization.k8s.io/kubernetes-dashboard reconciled.
+          reconciliation required update. rolebinding.rbac.authorization.k8s.io/kubernetes-dashboard
+          configured
+        name: kubernetes-dashboard
+        namespace: kubernetes-dashboard
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Running
+        kind: Service
+        message: service/dashboard-metrics-scraper configured
+        name: dashboard-metrics-scraper
+        namespace: kubernetes-dashboard
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Running
+        kind: Service
+        message: service/kubernetes-dashboard configured
+        name: kubernetes-dashboard
+        namespace: kubernetes-dashboard
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apps
+        hookPhase: Running
+        kind: Deployment
+        message: deployment.apps/kubernetes-dashboard configured
+        name: kubernetes-dashboard
+        namespace: kubernetes-dashboard
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apps
+        hookPhase: Running
+        kind: Deployment
+        message: deployment.apps/dashboard-metrics-scraper configured
+        name: dashboard-metrics-scraper
+        namespace: kubernetes-dashboard
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      revision: 44b4868857cb7423de4cc48df495a6fffd7139b8
+      source:
+        path: dashboard
+        repoURL: https://gitlab.fors.ru/mgp/main-infra.git
+        targetRevision: HEAD
+  reconciledAt: "2021-08-05T10:11:52Z"
+  resources:
+  - kind: ConfigMap
+    name: kubernetes-dashboard-settings
+    namespace: kubernetes-dashboard
+    status: Synced
+    version: v1
+  - kind: Namespace
+    name: kubernetes-dashboard
+    status: Synced
+    version: v1
+  - kind: Secret
+    name: kubernetes-dashboard-certs
+    namespace: kubernetes-dashboard
+    status: Synced
+    version: v1
+  - kind: Secret
+    name: kubernetes-dashboard-csrf
+    namespace: kubernetes-dashboard
+    status: Synced
+    version: v1
+  - kind: Secret
+    name: kubernetes-dashboard-key-holder
+    namespace: kubernetes-dashboard
+    status: Synced
+    version: v1
+  - health:
+      status: Healthy
+    kind: Service
+    name: dashboard-metrics-scraper
+    namespace: kubernetes-dashboard
+    status: Synced
+    version: v1
+  - health:
+      status: Healthy
+    kind: Service
+    name: kubernetes-dashboard
+    namespace: kubernetes-dashboard
+    status: Synced
+    version: v1
+  - kind: ServiceAccount
+    name: kubernetes-dashboard
+    namespace: kubernetes-dashboard
+    status: Synced
+    version: v1
+  - group: apps
+    health:
+      status: Healthy
+    kind: Deployment
+    name: dashboard-metrics-scraper
+    namespace: kubernetes-dashboard
+    status: Synced
+    version: v1
+  - group: apps
+    health:
+      status: Healthy
+    kind: Deployment
+    name: kubernetes-dashboard
+    namespace: kubernetes-dashboard
+    status: Synced
+    version: v1
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: kubernetes-dashboard
+    status: Synced
+    version: v1
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
+    name: kubernetes-dashboard
+    status: Synced
+    version: v1
+  - group: rbac.authorization.k8s.io
+    kind: Role
+    name: kubernetes-dashboard
+    namespace: kubernetes-dashboard
+    status: Synced
+    version: v1
+  - group: rbac.authorization.k8s.io
+    kind: RoleBinding
+    name: kubernetes-dashboard
+    namespace: kubernetes-dashboard
+    status: Synced
+    version: v1
+  sourceType: Directory
+  summary:
+    images:
+    - kubernetesui/dashboard:v2.2.0
+    - kubernetesui/metrics-scraper:v1.0.6
+  sync:
+    comparedTo:
+      destination:
+        namespace: kubernetes-dashboard
+        server: https://kubernetes.default.svc
+      source:
+        path: dashboard
+        repoURL: https://gitlab.fors.ru/mgp/main-infra.git
+        targetRevision: HEAD
+    revision: 44b4868857cb7423de4cc48df495a6fffd7139b8
+    status: Synced

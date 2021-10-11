@@ -1,0 +1,28 @@
+apiVersion: "kafka.strimzi.io/v1beta2"
+kind: "KafkaConnector"
+metadata:
+  name: "nsidb03-connector"
+  namespace: prod
+  labels:
+    strimzi.io/cluster: debezium-connector-postgres
+spec:
+  class: io.debezium.connector.postgresql.PostgresConnector
+  tasksMax: 1
+  config:
+    plugin.name: pgoutput
+    #snapshot.mode: exported
+    slot.name: debezium_nsi_db03_slot
+    heartbeat.interval.ms: 100000
+    publication.name: nsi_db03_publication
+    database.hostname: data-backend-reg-ru.dev-mcx.ru
+    database.port: "9550"
+    database.user: "${file:/opt/kafka/external-configuration/connector-config/debezium-postgres-credentials.properties:POSTGRES_USER}"
+    database.password: "${file:/opt/kafka/external-configuration/connector-config/debezium-postgres-credentials.properties:POSTGRES_PASSWORD}"
+    database.dbname: nsi_db03
+    database.server.name: nsi_db03
+    schema.include.list: public
+    #table.include.list: public.record,public.value
+    table.include.list: public.record
+    database.history.kafka.bootstrap.servers: "kafka-kafka-bootstrap:9092"
+    #database.history.kafka.topic: "schema-changes.mgp_nsi"
+    #include.schema.changes: "true" 

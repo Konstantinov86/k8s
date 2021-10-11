@@ -146,6 +146,7 @@ runners:
         [[runners.kubernetes.volumes.pvc]]
           name = "mavencache"
           mount_path = "/tmp/mavencache"
+          environment = ["F_GITLAB_REGISTRY_HELPER_IMAGE=1"]
       [runners.feature_flags]
         FF_GITLAB_REGISTRY_HELPER_IMAGE = true
 

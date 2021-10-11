@@ -1,24 +1,23 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: read-only
+  name: c2g
   namespace: dev
-
 
 ---
 
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: read-only-dev
+  name: c2g-edit
   namespace: dev
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: view
+  name: edit
 subjects:
   - kind: ServiceAccount
-    name: read-only
+    name: c2g
     namespace: dev
 
 ---
@@ -26,15 +25,15 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: read-only-test
+  name: c2g-edit
   namespace: test
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: view
+  name: edit
 subjects:
   - kind: ServiceAccount
-    name: read-only
+    name: c2g
     namespace: dev
 
 ---
@@ -42,15 +41,13 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: read-only-demo
+  name: c2g-edit
   namespace: demo
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: view
+  name: edit
 subjects:
   - kind: ServiceAccount
-    name: read-only
+    name: c2g
     namespace: dev
-
----

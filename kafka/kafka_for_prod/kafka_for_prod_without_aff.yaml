@@ -63,31 +63,7 @@ spec:
   zookeeper:
     replicas: 3
     template:
-      pod:
 
-        affinity:
-          nodeAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              nodeSelectorTerms:
-              - matchExpressions:
-                - key: kubernetes.io/hostname
-                  operator: In
-                  values:
-                  - k8m1.tr.local
-                  - k8m2.tr.local
-                  - k8m3.tr.local
-          podAntiAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              - labelSelector:
-                  matchExpressions:
-                    - key: strimzi.io/name
-                      operator: In
-                      values:
-                        - kafka-zookeeper
-                topologyKey: "kubernetes.io/hostname"
-        tolerations:
-        - key: node-role.kubernetes.io/master
-          effect: NoSchedule
    # resources: 
    #   requests:
    ##     memory: 128Mi

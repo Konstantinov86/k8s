@@ -4,7 +4,7 @@ metadata:
   name: nfs-pvc-2
   namespace: kafka
 spec:
-  storageClassName: kafka-storage
+  storageClassName: nfs-storage
   accessModes:
     - ReadWriteMany
   resources:

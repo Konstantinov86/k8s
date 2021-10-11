@@ -57,7 +57,7 @@ data:
          
         }, {
             "name": "NoticeQueue",
-            "password_hash": "AGZUTynv46FmFZYaLzKGL+eVahEaagVo3bPFp70Zuim5Y46q",
+            "password_hash": "1gUO95BNJMqQ+wkQsjlSdR9K/dRPomC9Ky94UlBVlfd81SIG",
             "hashing_algorithm": "rabbit_password_hashing_sha256",
             "tags": "",
             "limits": {}
@@ -70,6 +70,12 @@ data:
         }, {
             "name": "registration-request",
             "password_hash": "k3q+rWZzccfF/ZYR1/0L60NsSAdz2E+0KtvGaH1/dw8f5d0m",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": "",
+            "limits": {}
+        }, {
+            "name": "nsi",
+            "password_hash": "T/Z0KUmb1iV4llTUEB/HX4MMDA6EYQz00FPqLT0SakKEeFXf",
             "hashing_algorithm": "rabbit_password_hashing_sha256",
             "tags": "",
             "limits": {}
@@ -145,6 +151,12 @@ data:
             "configure": "",
             "write": "",
             "read": "^.*\.registration-request(\..*)?$"
+        }, {
+            "user": "nsi",
+            "vhost": "/",
+            "configure": ".*",
+            "write": "^nsi.*",
+            "read": "^nsi.*"
         }
     ],
     "topic_permissions": [],
@@ -332,6 +344,14 @@ data:
             "name": "users",
             "vhost": "/",
             "type": "direct",
+            "durable": true,
+            "auto_delete": false,
+            "internal": false,
+            "arguments": {}
+        }, {
+            "name": "nsi.record.event",
+            "vhost": "/",
+            "type": "fanout",
             "durable": true,
             "auto_delete": false,
             "internal": false,
