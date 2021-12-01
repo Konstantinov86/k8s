@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: subject-service-auth-config
+data:
+  PASSPHRASE: "Президент объявил выходные на майские праздники, с 1 по 10 мая"
+  TTL: "1800000"
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: subject-service-config
+data:
+  DEVELOPMENT_MODE: "true"

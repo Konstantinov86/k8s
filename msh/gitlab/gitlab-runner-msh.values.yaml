@@ -68,7 +68,7 @@ terminationGracePeriodSeconds: 3600
 ## Configure the maximum number of concurrent jobs
 ## ref: https://docs.gitlab.com/runner/configuration/advanced-configuration.html#the-global-section
 ##
-concurrent: 5
+concurrent: 7
 
 ## Defines in seconds how often to check GitLab for a new builds
 ## ref: https://docs.gitlab.com/runner/configuration/advanced-configuration.html#the-global-section
@@ -140,9 +140,12 @@ metrics:
 runners:
   config: |
     [[runners]]
-
+      cache_dir = "/tmp/mavencache"
       [runners.kubernetes]
         image = "ubuntu:16.04"
+        [[runners.kubernetes.volumes.pvc]]
+          name = "mavencache"
+          mount_path = "/tmp/mavencache"
           environment = ["F_GITLAB_REGISTRY_HELPER_IMAGE=1"]
       [runners.feature_flags]
         FF_GITLAB_REGISTRY_HELPER_IMAGE = true
@@ -177,7 +180,7 @@ runners:
 
   ## Specify whether the runner should be locked to a specific project: true, false. Defaults to true.
   ##
-  locked: false
+  locked: true
 
   ## Specify the tags associated with the runner. Comma-separated list of tags.
   ##
@@ -195,7 +198,7 @@ runners:
   ##
   ## ref: https://docs.gitlab.com/ce/ci/runners/#runner-is-allowed-to-run-untagged-jobs
   ##
-  runUntagged: true
+  runUntagged: false
 
   ## Specify whether the runner should only run protected branches.
   ## Defaults to False.
@@ -307,11 +310,11 @@ runners:
   ## Build Container specific configuration
   ##
   ## DEPRECATED: See https://docs.gitlab.com/runner/install/kubernetes.html#additional-configuration
-  builds: {}
+  builds: 
     # cpuLimit: 200m
     # cpuLimitOverwriteMaxAllowed: 400m
-  memoryLimit: 3096Mi
-  memoryLimitOverwriteMaxAllowed: 3096Mi
+    memoryLimit: 2024Mi
+  #memoryLimitOverwriteMaxAllowed: 3096Mi
     # cpuRequests: 100m
     # cpuRequestsOverwriteMaxAllowed: 200m
     # memoryRequests: 128Mi
@@ -329,10 +332,9 @@ runners:
   ## Helper Container specific configuration
   ##
   ## DEPRECATED: See https://docs.gitlab.com/runner/install/kubernetes.html#additional-configuration
-  helpers: {}
+  helpers: 
     # cpuLimit: 200m
-  memoryLimit: 3096Mi
-  memoryLimitOverwriteMaxAllowed: 3096Mi
+    memoryLimit: 512Mi
     # cpuRequests: 100m
     # memoryRequests: 128Mi
     # image: "gitlab/gitlab-runner-helper:x86_64-${CI_RUNNER_REVISION}"
@@ -420,7 +422,6 @@ affinity: {}
 ## Node labels for pod assignment
 ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
-nodeSelector: {}
 
 nodeSelector:
   kubernetes.io/hostname: msh-node1.fors.ru
@@ -431,7 +432,6 @@ nodeSelector:
 ## List of node taints to tolerate (requires Kubernetes >= 1.6)
 ## Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 ##
-tolerations: []
   # Example: Regular worker nodes may have a taint, thus you need to tolerate the taint
   # when you assign the gitlab runner manager with nodeSelector or affinity to the nodes.
   # - key: "node-role.kubernetes.io/worker"

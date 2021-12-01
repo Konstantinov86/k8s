@@ -1,0 +1,101 @@
+# Default values for subject-service.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 2
+revisionHistoryLimit: 3
+
+image:
+  registry: gitlab.fors.ru:5050
+  prefix: "msh/gispz-backend"
+  tag: "1.0.0-20211109074524"
+  pullPolicy: IfNotPresent
+  credentials:
+    username: gitlab+deploy-token-11
+    password: dGattiysykBMKyrzeqLS
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: { }
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: { }
+
+podSecurityContext: { }
+# fsGroup: 2000
+
+securityContext: { }
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+# runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  annotations: { }
+    # kubernetes.io/ingress.class: nginx
+  # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths: [ ]
+  tls: [ ]
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 300m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: { }
+
+tolerations: [ ]
+
+affinity: { }
+
+#database parameters
+db:
+  host: msh-dev_db.fors.ru
+  port: 6432
+  database: msh
+  username: msh
+  password: msh
+  pool_size: 5
+
+
+env:
+  - name: DEVELOPMENT_MODE
+    value: "true"
+
+auth:
+  passphrase: "Президент объявил выходные на майские праздники, с 1 по 10 мая"
+  ttl: 1800000
+

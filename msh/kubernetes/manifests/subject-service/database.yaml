@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: subject-service-database-config
+stringData:
+  HOST: "msh-dev_db.fors.ru"
+  DATABASE: "msh"
+  PORT: "6432"
+  USERNAME: "msh"
+  PASSWORD: "msh"
+  POOL_SIZE: "5"
+
+

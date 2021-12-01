@@ -1,0 +1,74 @@
+server:
+  port: ${PORT:8091}
+  shutdown: graceful
+  forward-headers-strategy: framework
+
+
+spring:
+  application:
+    name: subject-service
+
+  jackson:
+    date-format: dd.MM.yyyy
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:msh-dev_db.fors.ru}:${DB_PORT:6432}/${DB_DATABASE:msh}?ApplicationName=GISPZ-Subject&sslmode=${DB_SSL_MODE:disable}&prepareThreshold=0
+    username: ${DB_USERNAME:msh}
+    password: ${DB_PASSWORD:msh}
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: always
+    sql-script-encoding: UTF-8
+    hikari:
+      maximum-pool-size: ${DB_POOL_SIZE:10}
+
+  jpa:
+    database: postgresql
+    show-sql: false
+    generate-ddl: false
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+
+    properties:
+      hibernate:
+        default_schema: grain_2
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+        ddl-auto: none
+
+    hibernate:
+      ddl-auto: none
+
+
+mcx:
+ secretPhrase: ${AUTH_PASSPHRASE:Осторожно, двери закрываются! Следующая станция Медведково!}
+ expired: ${AUTH_TTL:1800000}
+ devmode: ${DEVELOPMENT_MODE:true}
+
+
+fias:
+  schema: fias
+
+
+management:
+  endpoint:
+    info:
+      enabled: true
+    health:
+      probes:
+        enabled: true
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: info, health, shutdown
+
+
+springdoc:
+  api-docs:
+    path: /api/subject/swagger-api-docs
+  swagger-ui:
+    path: /api/subject/swagger
+    tags-sorter: alpha
+    operations-sorter: method
+    disable-swagger-default-url: true
+    validator-url:
+

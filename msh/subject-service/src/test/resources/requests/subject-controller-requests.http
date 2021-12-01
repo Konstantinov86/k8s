@@ -1,0 +1,182 @@
+### 1: Юрлицо
+GET http://localhost:8091/api/subject/1
+
+### 2: ИП
+GET http://localhost:8091/api/subject/69
+
+### 3: Филиал
+GET http://localhost:8091/api/subject/512
+
+### 4: Иностранец
+GET http://localhost:8091/api/subject/797
+
+
+### 5: Создание ЮЛ
+# 353525, КРАСНОДАРСКИЙ КРАЙ, ТЕМРЮКСКИЙ РАЙОН, КУРЧАНСКАЯ СТАНИЦА, ЮЖНАЯ УЛИЦА, ДОМ 45, ОГРН: 1152352000921, Дата присвоения ОГРН: 20.10.2015, ИНН: 2352052170, КПП: 235201001,
+POST http://localhost:8091/api/subject/create
+Content-Type: application/json
+
+{
+  "subject_type": "UL",
+  "name": "ООО \"Трус, Балбес и Бывалый\"",
+  "short_name": "Трус, Балбес и Бывалый",
+  "opf": {
+    "id": 12300
+  },
+  "inn": "2352052170",
+  "kpp": "235201001",
+  "ogrn": "1152352000921",
+  "address": {
+    "address": "КРАСНОДАРСКИЙ КРАЙ, ТЕМРЮКСКИЙ Р-Н, КУРЧАНСКАЯ СТ-ЦА, ЮЖНАЯ УЛ, Д. 45"
+  }
+}
+
+
+### 6: Создание ЮЛ
+# ПРОИЗВОДСТВЕННЫЙ КООПЕРАТИВ;АРТЕЛЬ "ВОЛЬНЫХ МЫЛОВАРОВ"
+# 160034 ВОЛОГОДСКАЯ ОБЛАСТЬ ГОРОД ВОЛОГДА УЛИЦА КОСТРОМСКАЯ ДОМ 5 КВАРТИРА 11, ОГРН: 5167746510146, Дата присвоения ОГРН: 30.12.2016, ИНН: 3525393188, КПП: 352501001,
+POST http://localhost:8091/api/subject/create
+Content-Type: application/json
+
+{
+  "subject_type": "UL",
+  "name": "АРТЕЛЬ \"ВОЛЬНЫХ МЫЛОВАРОВ\"",
+  "short_name": "АРТЕЛЬ ВОЛЬНЫХ МЫЛОВАРОВ",
+  "opf": {
+    "id": 12300
+  },
+  "inn": "3525393188",
+  "kpp": "352501001",
+  "ogrn": "5167746510146",
+  "address": {
+    "address": "ВОЛОГОДСКАЯ ОБЛАСТЬ, ВОЛОГДА Г, КОСТРОМСКАЯ УЛ, Д. 12, КВАРТИРА 11",
+    "additional_info": "в коридоре"
+  }
+}
+
+
+### 7: Создание ИП
+# БОБИРОВ ЕВГЕНИЙ ИГОРЕВИЧ ОГРНИП: 321631200057929, ИНН: 631630077754,
+POST http://localhost:8091/api/subject/create
+Content-Type: application/json
+
+{
+  "subject_type": "IP",
+  "last_name": "БОБИРОВ",
+  "first_name": "ЕВГЕНИЙ",
+  "second_name": "ИГОРЕВИЧ",
+  "inn": "631630077754",
+  "ogrn": "321631200057929",
+  "address": {
+    "address": "ВОЛОГОДСКАЯ ОБЛАСТЬ, ВОЛОГДА Г, КОСТРОМСКАЯ УЛ, Д. 12, КВАРТИРА 11",
+    "additional_info": "в коридоре"
+  },
+  "identity_doc": {
+    "type": {
+      "id": 1
+    },
+    "id_number": "123456",
+    "series": null
+  }
+}
+
+
+### 8: Создание иностранного филиала
+POST http://localhost:8091/api/subject/create
+Content-Type: application/json
+
+{
+  "subject_type": "IF",
+  "name": "ПРЕДСТАВИТЕЛЬСТВО КОМПАНИИ \"ОРАКЛ НЕДЕРЛАНД Б.В.\"",
+  "short_name": "ПРЕДСТАВИТЕЛЬСТВО КОМПАНИИ \"ОРАКЛ НЕДЕРЛАНД Б.В.\"",
+  "inn": "9909010764",
+  "kpp": "773851001",
+  "nza": "20150029537",
+  "country": {
+    "country_id": 203
+  },
+  "foreign_address": {
+    "address": "НИДЕРЛАНДЫ, Г. УТРЕХТ, 3543AS, ХЕРТОГСВЕТЕРИНГ 163-167",
+    "country": {
+      "country_id": 203
+    }
+  },
+  "address": {
+    "address": "НИДЕРЛАНДЫ, Г. УТРЕХТ, 3543AS, ХЕРТОГСВЕТЕРИНГ 163-167",
+    "country": {
+      "country_id": 1
+    }
+  }
+}
+
+
+### 9: Создание иностранной организации
+#
+#
+#Attention: Trademark and Copyright Legal Department
+POST http://localhost:8091/api/subject/create
+Content-Type: application/json
+
+{
+  "subject_type": "IR",
+  "name": "Oracle Corporation",
+  "short_name": "Oracle Corporation",
+  "country": {
+    "country_id": 56
+  },
+  "foreign_address": {
+    "address": "500 Oracle Parkway, M/S 5op7 Redwood Shores, CA 94065",
+    "country": {
+      "country_id": 56
+    }
+  }
+}
+
+
+### 10: Изменение адреса ЮЛ
+POST http://localhost:8091/api/subject/update
+Content-Type: application/json
+
+{
+  "subject_id": 1681,
+  "subject_type": "UL",
+  "name": "ООО \"Трус, Балбес и Бывалый\"",
+  "short_name": "Трус, Балбес и Бывалый",
+  "opf": {
+    "id": 12300
+  },
+  "inn": "2352052170",
+  "kpp": "235201001",
+  "ogrn": "1152352000921",
+  "address": {
+    "address_id": 2203,
+    "address": "КРАСНОДАРСКИЙ КРАЙ, ТЕМРЮКСКИЙ Р-Н, КУРЧАНСКАЯ СТ-ЦА, ЮЖНАЯ УЛ, Д. 43"
+  }
+}
+
+
+### 11: Удаление ЮЛ
+POST http://localhost:8091/api/subject/delete
+Content-Type: application/json
+
+{
+  "subject_id": 1681,
+  "subject_type": "UL",
+  "name": "ООО \"Трус, Балбес и Бывалый\"",
+  "short_name": "Трус, Балбес и Бывалый",
+  "opf": {
+    "id": 12300
+  },
+  "inn": "2352052170",
+  "kpp": "235201001",
+  "ogrn": "1152352000921",
+  "address": {
+    "address_id": 2203,
+    "address": "КРАСНОДАРСКИЙ КРАЙ, ТЕМРЮКСКИЙ Р-Н, КУРЧАНСКАЯ СТ-ЦА, ЮЖНАЯ УЛ, Д. 43"
+  }
+}
+
+
+### 11: Юрлицо
+GET http://localhost:8091/api/subject/1681
+

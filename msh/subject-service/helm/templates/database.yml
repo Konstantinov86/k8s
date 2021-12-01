@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .Chart.Name }}-database-config
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "2"
+stringData:
+  HOST: {{ .Values.db.host }}
+  PORT: "{{ .Values.db.port }}"
+  DATABASE: {{ .Values.db.database }}
+  USERNAME: {{ .Values.db.username }}
+  PASSWORD: {{ .Values.db.password }}
+  POOL_SIZE: "{{ .Values.db.pool_size }}"
+
+  
+  
+  
+
+
+

@@ -1,10 +1,4 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: definitions
-  namespace: dev
-data:
-  def.json: |
+
     {
        "users": [{
             "name": "control-limit",
@@ -54,10 +48,10 @@ data:
             "hashing_algorithm": "rabbit_password_hashing_sha256",
             "tags": "",
             "limits": {}
-         
+
         }, {
             "name": "NoticeQueue",
-            "password_hash": "1gUO95BNJMqQ+wkQsjlSdR9K/dRPomC9Ky94UlBVlfd81SIG",
+            "password_hash": "GHuP25LRrngfxYAf5O0/nfs2UjOEs55deu+c4RqevEI46wXk",
             "hashing_algorithm": "rabbit_password_hashing_sha256",
             "tags": "",
             "limits": {}
@@ -80,15 +74,53 @@ data:
             "tags": "",
             "limits": {}
         }, {
+            "name": "nsi-organization-importer",
+            "password_hash": "N+OODvcRdvmzR51PO122qlk0Tn3bVJzgJjqXnl2b/r++jMkI",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": "",
+            "limits": {}
+        }, {
             "name": "nsi-transformer",
             "password_hash": "TBj2wDvGyOC9zNzUDI6zat+3Mc4A4FoOqu72v8nGA+joyGkG",
             "hashing_algorithm": "rabbit_password_hashing_sha256",
             "tags": "",
             "limits": {}
+        }, {
+            "name": "security-blitz-sync",
+            "password_hash": "BCb0EoxO4t6uaGjfJtZCVvMjLGwCvzxjI6CeBaAtLfvq8B7W",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": "",
+            "limits": {}
+        }, {
+            "name": "subsidies-interaction-admin",
+            "password_hash": "8nuse3nAQQw03+emWIdmyNEQPvyA1ea8RdNQYWaxqDnKXJZZ",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": "",
+            "limits": {}
+        }, {
+            "name": "subsidies-interaction-service",
+            "password_hash": "8nuse3nAQQw03+emWIdmyNEQPvyA1ea8RdNQYWaxqDnKXJZZ",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": "",
+            "limits": {}
+        }, {
+            "name": "subsidies-interaction-region",
+            "password_hash": "8nuse3nAQQw03+emWIdmyNEQPvyA1ea8RdNQYWaxqDnKXJZZ",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": "",
+            "limits": {}
+        }, {
+            "name": "support-agreement",
+            "password_hash": "kykIfT64XOeBlh8MeE/XuwqJf7GHl7oUMdb1iTGh3lFMv8QB",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": "",
+            "limits": {}
         }
+
     ],
     "vhosts": [{
-            "name": "/"
+            "name": "/",
+            "name": "/subsidies"
         }
     ],
     "permissions": [{
@@ -113,7 +145,7 @@ data:
             "user": "control-limit",
             "vhost": "/",
             "configure": ".*",
-            "write": "measure-quotas",
+            "write": "measure-quotas|limits",
             "read": "^.*\.control-limit(\..*)?$"
         }, {
             "user": "kzn-integration",
@@ -126,7 +158,7 @@ data:
             "vhost": "/",
             "configure": ".*",
             "write": "",
-            "read": "^.*\.subjects-funding-agreements(\..*)?$"  
+            "read": "^.*\.subjects-funding-agreements(\..*)?$"
         }, {
             "user": "blitz",
             "vhost": "/",
@@ -139,6 +171,12 @@ data:
             "configure": "",
             "write": "",
             "read": "^.*\.organizational-structure(\..*)?$"
+        }, {
+            "user": "nsi-organization-importer",
+            "vhost": "/",
+            "configure": "",
+            "write": "",
+            "read": "^.*\.nsi-organization-importer(\..*)?$"
         }, {
             "user": "NoticeQueue",
             "vhost": "/",
@@ -169,8 +207,32 @@ data:
             "configure": "",
             "write": "",
             "read": "^nsi.*"
+        }, {
+            "user": "subsidies-interaction-admin",
+            "vhost": "/subsidies",
+            "configure": "/subsidies",
+            "write": ".*",
+            "read": ".*"
+         }, {
+            "user": "subsidies-interaction-service",
+            "vhost": "/subsidies",
+            "configure": ".*",
+            "write": "^service.*",
+            "read": "^region.*"
+         }, {
+            "user": "subsidies-interaction-region",
+            "vhost": "/subsidies",
+            "configure": ".*",
+            "write": "^region.*",
+            "read": "^service.*"
+        }, {
+            "user": "support-agreement",
+            "vhost": "/",
+            "configure": ".*",
+            "write": "",
+            "read": "^.*\.support-agreement(\..*)?$"
         }
-        
+
     ],
     "topic_permissions": [],
     "parameters": [],
@@ -256,6 +318,14 @@ data:
                 "x-queue-type": "classic"
             }
         }, {
+            "name": "users.nsi-organization-importer",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {
+                "x-queue-type": "classic"
+            }
+        }, {
             "name": "informing.NoticeQueue",
             "vhost": "/",
             "durable": true,
@@ -285,10 +355,81 @@ data:
             "durable": true,
             "auto_delete": false,
             "arguments": {
-            "x-queue-type": "classic",
-            "x-single-active-consumer": "true"
+            "x-queue-type": "classic"
             }
-     }       
+        }, {
+            "name": "service.subsidies-interaction.create",
+            "vhost": "/subsidies",
+            "durable": true,
+            "exclusive": false,
+            "auto_delete": false,
+            "arguments": {
+            "x-queue-type": "classic"
+            }
+        }, {
+            "name": "region.subsidies-interaction.create",
+            "vhost": "/subsidies",
+            "durable": true,
+            "exclusive": false,
+            "auto_delete": false,
+            "arguments": {
+            "x-queue-type": "classic"
+            }
+        }, {
+            "name": "service.subsidies-interaction.cancel",
+            "vhost": "/subsidies",
+            "durable": true,
+            "exclusive": false,
+            "auto_delete": false,
+            "arguments": {
+            "x-queue-type": "classic"
+            }
+        }, {
+            "name": "region.subsidies-interaction.cancel",
+            "vhost": "/subsidies",
+            "durable": true,
+            "exclusive": false,
+            "auto_delete": false,
+            "arguments": {
+            "x-queue-type": "classic"
+            }
+        }, {
+            "name": "service.subsidies-interaction.status",
+            "vhost": "/subsidies",
+            "durable": true,
+            "exclusive": false,
+            "auto_delete": false,
+            "arguments": {
+            "x-queue-type": "classic"
+            }
+        }, {
+            "name": "region.subsidies-interaction.status",
+            "vhost": "/subsidies",
+            "durable": true,
+            "exclusive": false,
+            "auto_delete": false,
+            "arguments": {
+            "x-queue-type": "classic"
+            }
+        }, {
+            "name": "region.subsidies-interaction.decision",
+            "vhost": "/subsidies",
+            "durable": true,
+            "exclusive": false,
+            "auto_delete": false,
+            "arguments": {
+            "x-queue-type": "classic"
+            }
+        }, {
+            "name": "limits.support-agreement",
+            "vhost": "/",
+            "durable": true,
+            "exclusive": false,
+            "auto_delete": false,
+            "arguments": {
+            "x-queue-type": "classic"
+            }
+        }
     ],
     "exchanges": [{
             "name": "indicators",
@@ -378,7 +519,24 @@ data:
             "auto_delete": false,
             "internal": false,
             "arguments": {}
+        }, {
+            "name": "subsidies-interaction",
+            "vhost": "/subsidies",
+            "type": "direct",
+            "durable": true,
+            "auto_delete": false,
+            "internal": false,
+            "arguments": {}
+        }, {
+            "name": "limits",
+            "vhost": "/",
+            "type": "direct",
+            "durable": true,
+            "auto_delete": false,
+            "internal": false,
+            "arguments": {}
         }
+        
     ],
     "bindings": [{
             "source": "indicators",
@@ -444,6 +602,13 @@ data:
             "routing_key": "registration",
             "arguments": {}
         }, {
+            "source": "users",
+            "vhost": "/",
+            "destination": "users.nsi-organization-importer",
+            "destination_type": "queue",
+            "routing_key": "registration",
+            "arguments": {}
+        }, {
             "source": "subprograms",
             "vhost": "/",
             "destination": "subprograms.needs",
@@ -478,6 +643,63 @@ data:
             "destination_type": "queue",
             "routing_key": "#",
             "arguments": {}
+        }, {
+            "source": "subsidies-interaction",
+            "vhost": "/subsidies",
+            "destination": "service.subsidies-interaction.create",
+            "destination_type": "queue",
+            "routing_key": "service.create",
+            "arguments": {}
+         }, {
+            "source": "subsidies-interaction",
+            "vhost": "/subsidies",
+            "destination": "region.subsidies-interaction.create",
+            "destination_type": "queue",
+            "routing_key": "region.create",
+            "arguments": {}
+         }, {
+            "source": "subsidies-interaction",
+            "vhost": "/subsidies",
+            "destination": "service.subsidies-interaction.cancel",
+            "destination_type": "queue",
+            "routing_key": "service.cancel",
+            "arguments": {}
+         }, {
+            "source": "subsidies-interaction",
+            "vhost": "/subsidies",
+            "destination": "region.subsidies-interaction.cancel",
+            "destination_type": "queue",
+            "routing_key": "region.cancel",
+            "arguments": {}
+         }, {
+            "source": "subsidies-interaction",
+            "vhost": "/subsidies",
+            "destination": "service.subsidies-interaction.status",
+            "destination_type": "queue",
+            "routing_key": "service.status",
+            "arguments": {}
+         }, {
+            "source": "subsidies-interaction",
+            "vhost": "/subsidies",
+            "destination": "region.subsidies-interaction.status",
+            "destination_type": "queue",
+            "routing_key": "region.status",
+            "arguments": {}
+         }, {
+            "source": "subsidies-interaction",	
+            "vhost": "/subsidies",	
+            "destination": "region.subsidies-interaction.decision",	          
+            "destination_type": "queue",	            
+            "routing_key": "region.decision",	          
+            "arguments": {}
+         }, {
+            "source": "limits",
+            "vhost": "/",
+            "destination": "limits.support-agreement",
+            "destination_type": "queue",
+            "routingKey": "",
+            "arguments": {}
         }
+        
     ]
     }

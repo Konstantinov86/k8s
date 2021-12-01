@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: subject-service
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: subject-service
+  template:
+    metadata:
+      labels:
+        app: subject-service
+    spec:
+      imagePullSecrets:
+        - name: subject-service-registrykey
+      containers:
+      - name: server
+        image: gitlab.fors.ru:5050/msh/gispz-backend/subject-service:1.0.0-SNAPSHOT-20211103080740
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8091
+          protocol: TCP
+        envFrom:
+          - prefix: DB_
+            secretRef:
+                name: subject-service-database-config
+          - prefix: AUTH_
+            configMapRef:
+                name: subject-service-auth-config
+          - configMapRef:
+              name: subject-service-config
+
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 200m
+            memory: 512Mi
