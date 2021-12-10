@@ -3,7 +3,7 @@
   kind: Ingress
   metadata:
     name: ingress-service
-    namespace: msh-dev
+    namespace: gispz-tech
     annotations:
       kubernetes.io/ingress.class: "nginx"
       nginx.ingress.kubernetes.io/x-forwarded-prefix: "/"
@@ -14,7 +14,7 @@
 
   spec:
     rules:
-    - host: msh-node1.fors.ru
+    - host: tech-zerno.fors.ru
       http:
         paths:
         - path: /
@@ -37,7 +37,7 @@
           pathType: Prefix
           backend:
             service:
-             name: esia-auth-service
+             name: authorization-service
              port:
                number: 80
         
@@ -206,6 +206,14 @@
           backend:
             service:
               name: gpb-service
+              port:
+                number: 80
+        
+        - path: /api/opendata
+          pathType: Prefix
+          backend:
+            service:
+              name: opendata-service
               port:
                 number: 80
           
