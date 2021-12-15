@@ -14,7 +14,7 @@
 
   spec:
     rules:
-    - host: test-zerno.fors.ru
+    - host: test-zerno.mcx.gov.ru
       http:
         paths:
         - path: /
@@ -208,7 +208,8 @@
               name: gpb-service
               port:
                 number: 80
-        
+
+
         - path: /api/opendata
           pathType: Prefix
           backend:
